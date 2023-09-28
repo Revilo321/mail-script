@@ -17,11 +17,12 @@ class EmailHandler:
     
     def check_email_for_sender(self):
         email_ids = []
+        text_to_find = "Studiekontrol"
         try:
             mail = imaplib.IMAP4_SSL(self.email_config["imap_server"])
             mail.login(self.email_config["address"], self.email_config["password"])
             mail.select('inbox')
-            _, email_ids_bytes = mail.search(None, f'(FROM "{self.email_config["search_sender"]}")', '(UNSEEN)')
+            _, email_ids_bytes = mail.search(None, f'(FROM "{self.email_config["search_sender"]}")', '(UNSEEN)', f'(BODY {text_to_find})')
             email_ids = email_ids_bytes[0].decode('utf-8').split()
         except Exception as e:
             print(f"Error while checking email: {e}")
