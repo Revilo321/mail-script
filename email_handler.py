@@ -17,7 +17,7 @@ class EmailHandler:
     
     def check_email_for_sender(self):
         email_ids = []
-        text_to_find = "Studiekontrol"
+        text_to_find = "Test"
         try:
             mail = imaplib.IMAP4_SSL(self.email_config["imap_server"])
             mail.login(self.email_config["address"], self.email_config["password"])
